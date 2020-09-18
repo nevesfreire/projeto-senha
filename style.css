@@ -1,0 +1,98 @@
+body{
+    background-image: url('fundo.jpg');
+    background-size: fill;
+    
+    margin: 20px;
+}
+.disponiveis{
+    border-radius:40px;
+    width: 40px;
+    height: 40px;
+    display:inline-block;
+    background-color: black;
+    margin: 2px;
+    border: solid black 1px;
+}
+.cor{
+    border-radius:50px;
+    width: 40px;
+    height: 40px;
+    display:inline-block;
+    background-color: white;
+    border: solid 1px black;
+    margin: 2px;
+}
+.arquivo{
+    border-radius:50px;
+    width: 40px;
+    height: 40px;
+    display:inline-block;
+    background-color: white;
+    border: solid 1px black;
+    margin: 2px;
+}
+#arquivo{
+    margin-left: 15px
+}
+#senhaDefinida{
+    margin: 3px;
+    font-weight: bold;
+    color: 
+    
+}
+.feedback{
+    display: inline-block;
+    margin: 10px;
+    text-align: center;
+    vertical-align: middle;
+    position: absolute;
+}
+.black{
+    border-radius:15px;
+    width: 15px;
+    height: 15px;
+    display:inline-block;
+    background-color:black;
+    border: solid 1px black;
+    margin: 1px;
+}
+.white{
+    border-radius:15px;
+    width: 15px;
+    height: 15px;
+    display:inline-block;
+    background-color: white;
+    border: solid 1px black;
+    margin: 1px;
+}
+.contador{
+    display:inline-block;
+    font-size: 12px;
+    margin:5px;
+    vertical-align: text-top;
+}
+
+#bloco{
+    border: 2px solid black;
+    width: fit-content;
+    padding: 1px;
+}
+h2{
+    text-decoration: underline;
+}
+#criarTentativa{
+    background-color: cornflowerblue;
+    font-size: 20px;
+    border-bottom: black 2px solid;
+}
+#fundo{
+    background-image: url('checkers.png');
+    border-radius: 20px;
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+    padding-top: 15px   
+}
+title{
+    
+}
