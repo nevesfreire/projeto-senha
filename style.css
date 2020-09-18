@@ -1,6 +1,6 @@
 body{
-    background-image: url('fundo.jpg');
-    background-size: fill;
+    background-image: url('checkers.png');
+    background-size: cover;
     
     margin: 20px;
 }
@@ -86,12 +86,14 @@ h2{
     border-bottom: black 2px solid;
 }
 #fundo{
-    background-image: url('checkers.png');
+    background-image: url('fundo.jpg');
+    background-size: cover;
     border-radius: 20px;
     width: fit-content;
     height: fit-content;
-    padding: 20px;
-    padding-top: 15px   
+    padding: 40px;
+    padding-top: 15px;
+    padding-right: 100px ;  
 }
 title{
     
