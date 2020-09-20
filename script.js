@@ -1,7 +1,7 @@
 let contador =0;
 let brancos =0;
 let pretos =0;
-let digitos = 7;
+let digitos = 4;
 let local = document.querySelector(".tentativa");
 // Criar as divs para cores
 for (let index=0;index<digitos;index+=1){
@@ -9,6 +9,7 @@ for (let index=0;index<digitos;index+=1){
     item.classList.add("cor");
     local.appendChild(item)
 }
+
 let botao = document.createElement('button');
 botao.id = "criarTentativa";
 botao.innerText = "Pode Conferir!"
@@ -52,25 +53,33 @@ console.log("senha vale: " +senha);
 let escolha =0;
 var selecionadas=[0,0,0,0,0,0,0]
 let cores = document.querySelectorAll(".cor");
+
+// funcao achar cor não utilizada
+function melhorEscolha(){
+    if (selecionadas[escolha] ==1){
+        escolha+=1;
+        console.log(selecionadas)
+        melhorEscolha();
+    }
+}
+function zerarCorAtual(index){
+    console.log("zerar cor. Selecionada vale "+ selecionadas)
+    let qual = cores[index].style.backgroundColor
+    selecionadas[disponiveis.indexOf(qual)] =0;
+}
+
 for(let index=0;index<cores.length;index+=1){
     cores[index].addEventListener("click", function(){
-        // let escolha=0;
-        // console.log(selecionadas    )
-        // for(let index=0;index<selecionadas.length;index+=1){
-
-        //     if(selecionadas[escolha]==1){
-        //         escolha+=1;
-        //     }
-        // }
-      
         
+        zerarCorAtual(index);
+        melhorEscolha();
+
         cores[index].style.backgroundColor = disponiveis[escolha];
-        // selecionadas[escolha] =1;
+        selecionadas[escolha] =1;
         escolha +=1;
+
         if (escolha == disponiveis.length){
             escolha =0;
-        } else{
-           
         }
     })
 }
