@@ -1,19 +1,23 @@
 let contador =0;
 let brancos =0;
 let pretos =0;
-let digitos = 3;
+let digitos = 4;
 let local = document.querySelector(".tentativa");
-// Criar as divs para cores
-for (let index=0;index<digitos;index+=1){
-    let item = document.createElement('div');
-    item.classList.add("cor");
-    local.appendChild(item)
-}
 
-let botao = document.createElement('button');
+// Criar as divs para cores
+function criarDiv (){
+    local.innerHTML ='';
+    for (let index=0;index<digitos;index+=1){
+        let item = document.createElement('div');
+        item.classList.add("cor");
+        local.appendChild(item)
+    }
+    let botao = document.createElement('button');
 botao.id = "criarTentativa";
 botao.innerText = "Pode Conferir!"
 local.appendChild(botao);
+}
+criarDiv();
 
 // Fazendo o cabeçalho com as 7 cores disponíveis
 let disponiveis = ["darkblue", "green", "red", "yellow", "orange", "pink", "purple"];
@@ -21,15 +25,36 @@ let cabecalho = document.querySelectorAll(".disponiveis");
 for (let index =0;index<disponiveis.length;index+=1){
     cabecalho[index].style.backgroundColor = disponiveis[index];
 }
+// Definir as regras
+const regras = document.querySelector('.regras')
+regras.style.border = "solid black 2px";
+regras.innerText = `Uma senha de ${digitos} cores distintas será criada. Você tem 10 tentativas para acertar a descobrir usando seus chutes e o feedback recebido. 
+Branco = Cor certa, posição errada
+Preto = Cor certa, posição certa.`
+
+// Definir quantos dígitos:
+let inputDigitos = document.querySelector('#digitos');
+inputDigitos.addEventListener("change",function () {
+    digitos = inputDigitos.value;
+    console.log ("digitos vale "+ digitos);
+    criarDiv();
+    definirSenha();
+    criarEventos();
+    criarEventoBotaoTentativa();
+    console.log (senha);
+})
 //Criando a senha com cores distintas
 let senha =[];
 definirSenha();
+
 function definirSenha (){
+    senha =[];
 for(let index=0;index<digitos;index+=1){
     let cor = Math.floor(Math.random()*7)
     senha[index] = disponiveis[cor];
 }
 tirarRepetidas();
+
 }
 function tirarRepetidas(){
     let igual =0;
@@ -46,7 +71,6 @@ function tirarRepetidas(){
     document.getElementById("senhaDefinida").innerText = "Senha Definida. Pode começar :-)";
 }
 
-console.log("senha vale: " +senha);
 
 // CRIAR UMA TENTATIVA
 
@@ -54,7 +78,7 @@ let escolha =0;
 var selecionadas=[0,0,0,0,0,0,0]
 let cores = document.querySelectorAll(".cor");
 
-// funcao achar cor não utilizada
+// funcao achar cor não utilizada NÃO PODE COLOCAR O SELECIONADAS DENTRO DA FUNÇÃO MELHOR ESCOLHA;
 function melhorEscolha(){
     if (selecionadas[escolha] ==1){
         escolha+=1;
@@ -63,11 +87,14 @@ function melhorEscolha(){
     }
 }
 function zerarCorAtual(index){
+
+let cores = document.querySelectorAll(".cor");
     console.log("zerar cor. Selecionada vale "+ selecionadas)
     let qual = cores[index].style.backgroundColor
     selecionadas[disponiveis.indexOf(qual)] =0;
 }
-
+function criarEventos(){
+let cores = document.querySelectorAll(".cor");
 for(let index=0;index<cores.length;index+=1){
     cores[index].addEventListener("click", function(){
         
@@ -83,6 +110,9 @@ for(let index=0;index<cores.length;index+=1){
         }
     })
 }
+}
+criarEventos();
+function criarEventoBotaoTentativa (){
 let criarTentaviva = document.querySelector("#criarTentativa");
 
 criarTentaviva.addEventListener("click",function(){
@@ -131,6 +161,8 @@ criarTentaviva.addEventListener("click",function(){
     preto =0;
 }
 })
+}
+criarEventoBotaoTentativa();
 function gerarFeedback(feedback,resposta){
     let branco =resposta[0];
     let preto = resposta[1];
@@ -248,7 +280,7 @@ function tradutor(){
           console.log ("length vale " +traducao.length)
     return traducao;
 }
-console.log("traducao vale " + tradutor())
+// console.log("traducao vale " + tradutor())
 
 //traducao contem todas as combinacoes possiveis com as cores disponibilizadas e um item extra =0 em cada array. 
 

@@ -8,14 +8,17 @@
  <body class="body">
      <div id="fundo">
      <h2>Super Senha</h2>
-
+     <select id="digitos" class="digitos" name="digitos" >
+         <option value="2">2</option><option value="3">3</option><option selected="selected" value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+     </select>
     <!-- Cores disponíveis -->
-
-    <fieldset id="bloco">
+    <section class="cabecalho">
+    <fieldset id="bloco" class="bloco">
         <legend> <strong>Cores Disponíveis</strong></legend>
     <div class ="disponiveis"></div><div class ="disponiveis"></div><div class ="disponiveis"></div><div class ="disponiveis"></div><div class ="disponiveis"></div><div class ="disponiveis"></div><div class ="disponiveis"></div>
     </fieldset> 
-
+    <div class="regras"></div>
+    </section>
     <!-- criar a senha secreta -->
     <h3 id="senhaDefinida"></h3>
     
