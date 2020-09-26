@@ -20,7 +20,7 @@ local.appendChild(botao);
 criarDiv();
 
 // Fazendo o cabeçalho com as 7 cores disponíveis
-let disponiveis = ["darkblue", "green", "red", "yellow", "orange", "pink", "purple"];
+let disponiveis = ["darkblue", "green", "red", "yellow", "orange", "hotPink", "purple"];
 let cabecalho = document.querySelectorAll(".disponiveis");
 for (let index =0;index<disponiveis.length;index+=1){
     cabecalho[index].style.backgroundColor = disponiveis[index];
@@ -37,6 +37,8 @@ let inputDigitos = document.querySelector('#digitos');
 inputDigitos.addEventListener("change",function () {
     digitos = inputDigitos.value;
     console.log ("digitos vale "+ digitos);
+    selecionadas = [0,0,0,0,0,0.0];
+    escolha =0;
     criarDiv();
     definirSenha();
     criarEventos();
@@ -82,6 +84,9 @@ let cores = document.querySelectorAll(".cor");
 function melhorEscolha(){
     if (selecionadas[escolha] ==1){
         escolha+=1;
+        if (escolha ==selecionadas.length-1){
+            escolha=0;
+        }
         console.log(selecionadas)
         melhorEscolha();
     }
@@ -90,9 +95,16 @@ function zerarCorAtual(index){
 
 let cores = document.querySelectorAll(".cor");
     console.log("zerar cor. Selecionada vale "+ selecionadas)
-    let qual = cores[index].style.backgroundColor
-    selecionadas[disponiveis.indexOf(qual)] =0;
+    let qual = cores[index].style.backgroundColor;
+    console.log ("qual vale "+ qual)
+    if (disponiveis.indexOf(qual) < 0){
+        selecionadas[disponiveis.indexOf(qual)+1] =0;
+    }else {
+        selecionadas[disponiveis.indexOf(qual)] =0;
+    }
+    console.log ("index of qual vale " + disponiveis.indexOf(qual))
 }
+
 function criarEventos(){
 let cores = document.querySelectorAll(".cor");
 for(let index=0;index<cores.length;index+=1){
@@ -102,12 +114,13 @@ for(let index=0;index<cores.length;index+=1){
         melhorEscolha();
 
         cores[index].style.backgroundColor = disponiveis[escolha];
+        console.log ("escolha vale "+ escolha)
         selecionadas[escolha] =1;
-        escolha +=1;
+        escolha +=1;    
 
-        if (escolha == disponiveis.length){
+        if (escolha >= disponiveis.length){
             escolha =0;
-        }
+        } 
     })
 }
 }
