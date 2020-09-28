@@ -3,6 +3,7 @@ let brancos =0;
 let pretos =0;
 let digitos = 4;
 let local = document.querySelector(".tentativa");
+let traducao =[];
 
 // Criar as divs para cores
 function criarDiv (){
@@ -43,8 +44,9 @@ inputDigitos.addEventListener("change",function () {
     definirSenha();
     criarEventos();
     criarEventoBotaoTentativa();
-    console.log (senha);
+    console.log ("valor da senha "+senha);
 })
+
 //Criando a senha com cores distintas
 let senha =[];
 definirSenha();
@@ -56,7 +58,7 @@ for(let index=0;index<digitos;index+=1){
     senha[index] = disponiveis[cor];
 }
 tirarRepetidas();
-
+console.log ("Senha vale "+ senha);
 }
 function tirarRepetidas(){
     let igual =0;
@@ -77,14 +79,14 @@ function tirarRepetidas(){
 // CRIAR UMA TENTATIVA
 
 let escolha =0;
-var selecionadas=[0,0,0,0,0,0,0]
+let selecionadas=[0,0,0,0,0,0,0]
 let cores = document.querySelectorAll(".cor");
 
 // funcao achar cor não utilizada NÃO PODE COLOCAR O SELECIONADAS DENTRO DA FUNÇÃO MELHOR ESCOLHA;
 function melhorEscolha(){
     if (selecionadas[escolha] ==1){
         escolha+=1;
-        if (escolha ==selecionadas.length-1){
+        if (escolha ==selecionadas.length){
             escolha=0;
         }
         console.log(selecionadas)
@@ -94,15 +96,14 @@ function melhorEscolha(){
 function zerarCorAtual(index){
 
 let cores = document.querySelectorAll(".cor");
-    console.log("zerar cor. Selecionada vale "+ selecionadas)
     let qual = cores[index].style.backgroundColor;
-    console.log ("qual vale "+ qual)
-    if (disponiveis.indexOf(qual) < 0){
-        selecionadas[disponiveis.indexOf(qual)+1] =0;
-    }else {
+    if (disponiveis.indexOf(qual)!=-1){
         selecionadas[disponiveis.indexOf(qual)] =0;
+        console.log ("index da cor zerada vale " + disponiveis.indexOf(qual));
     }
-    console.log ("index of qual vale " + disponiveis.indexOf(qual))
+
+    console.log("zerar cor. Selecionada vale "+ selecionadas)
+    
 }
 
 function criarEventos(){
@@ -114,7 +115,7 @@ for(let index=0;index<cores.length;index+=1){
         melhorEscolha();
 
         cores[index].style.backgroundColor = disponiveis[escolha];
-        console.log ("escolha vale "+ escolha)
+        // console.log ("escolha vale "+ escolha)
         selecionadas[escolha] =1;
         escolha +=1;    
 
@@ -172,6 +173,7 @@ criarTentaviva.addEventListener("click",function(){
 
     branco =0;
     preto =0;
+   testarCombinacoes(traducao,tentativa);
 }
 })
 }
@@ -216,9 +218,9 @@ function conferir (tentativa,brancos, pretos){
 //contador abaixo
 
 // var digitos =4;  //número de dígitos na senha
-var k = disponiveis.length; //número de cores disponíveis
-var num =[];
-var resultado=[];
+let k = disponiveis.length; //número de cores disponíveis
+let num =[];
+let resultado=[];
 // let disponiveis = ["darkblue", "green", "red", "yellow", "orange", "pink", "purple"];
 
 //criar array com n digitos (todos = 0)
@@ -270,16 +272,14 @@ function tirarRepetidas2(num){
         // console.log(num)
         resultado.push(Object.assign({}, num))
         }
-    
 }
-
 // console.log(resultado)
 // console.log(resultado.length)
 // console.log(resultado[1][0]) // [item do array] [item do object]
 
 
 function tradutor(){
-    var traducao = resultado.map(function(obj) {
+    traducao = resultado.map(function(obj) { //se der errado, coloca um 'let ' aqui
             return Object.keys(obj).sort().map(function(key) { 
               return obj[key];
             });
@@ -290,10 +290,39 @@ function tradutor(){
                   traducao[i][j] = disponiveis[traducao[i][j]];
               }
           }
-          console.log ("length vale " +traducao.length)
+          console.log ("traducao length vale " +traducao.length);
+          localStorage.clear();
+          localStorage.setItem('aprovados',traducao);
+        //   testarCombinacoes(traducao)
+
+// console.log ("teste" + conferir(traducao[0],0,0))
     return traducao;
 }
+ traducao = tradutor();
 // console.log("traducao vale " + tradutor())
+
+function testarCombinacoes(entrada, tentativa){
+    console.log ("valor da tentativa na entrada da funcao "+ tentativa);
+    
+        let traducao = localStorage.getItem('aprovados'); 
+        console.log("traducao depois de copiar "+traducao.length)
+
+    let aprovados =[] 
+
+    for (let i=0;i<traducao.length;i+=1){
+        if (conferir(traducao[i],0,0)[0]==conferir(tentativa,0,0)[0] && conferir(traducao[i],0,0)[1]==conferir(tentativa,0,0)[1] ){
+            console.log("passou arui")
+            aprovados.push(traducao[i]);
+        }
+    }
+    console.log ("aprovados.length vale "+aprovados.length)
+    
+    console.log ("agora a traducao vale " + traducao.length)
+    localStorage.setItem('aprovados',aprovados);    
+}
+
+// ESSA FUNCAO TESTAR COMBINACOES NÃO ESTÁ FILTRANDO TODAS AS VEZES. APENAS FAZENDO A PRIMEIRA ITERACAO. 
+
 
 //traducao contem todas as combinacoes possiveis com as cores disponibilizadas e um item extra =0 em cada array. 
 
